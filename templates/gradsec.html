@@ -1,0 +1,16 @@
+<div class="main">
+
+<h1>Change Grades</h1>
+<p>Enter student's University ID to change any grade on their transcript</p>
+
+<div class="example" id="form">
+
+  <form action="/pythonlogin/changegrade" class="form-container" method = 'POST'>
+    <b>Universtiy Id:</b>
+    <input type ="text" id = "univid" name = "univid">
+    <label for="grades"><b>Grade:</b></label>
+    <input type="text" placeholder="Enter updated grade" name="grades">
+    <button type="submit" class="registerbtn" onclick="openP()">Submit</button>
+    <p>Updated first name: {{grades}}</p>
+</div>
+</form>

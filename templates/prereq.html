@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  font-family: "Lato", sans-serif;
+}
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #2a6592;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #000000;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  font-size: 28px; /* Increased text to enable scrolling */
+  transition: margin-left .5s;
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 16px;
+}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #0b46da
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #000000;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+#courses {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#courses td, #courses th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#courses tr:nth-child(even){background-color: #f2f2f2;}
+
+#courses tr:hover {background-color: #ddd;}
+
+#courses th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #000000;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+<a href="/pythonlogin/registerforclasses">Register for classes</a>
+<a href="/pythonlogin/transcript">View enrollment information</a>
+<a href="/pythonlogin/studenthome">Student Information</a>
+<a href="/pythonlogin/prereq">Prereq page</a>
+<a href="/pythonlogin/showdropcourse">Drop course</a>
+</div>
+
+<div id="main">
+  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
+  <h2>Submit Previous classes taken</h2>
+  <p>Search for classes or input course department or number to check availability</p>
+	<form class="example" action= "/pythonlogin/searchbar" method='POST'>
+	<input type="text" placeholder="Search.." name="search">
+	<button type="submit" onclick = "openTable()"><i class="fa fa-search"></i></button>
+  <br><br><br>
+  <p>{{messageresult}}</p>
+
+<div id = "courses">
+<table id="courses">
+  <tr>
+    <th>Department</th>
+    <th>Course number</th>
+    <th>Course name</th>
+    <th>Credits</th>
+    <th>Section number</th>
+    <th>prerequisite 1</th>
+    <th>prerequisite 2</th>
+  </tr>
+  <tr>
+  {% for result in result %}
+    <td>{{result[0]}}</td>
+    <td>{{result[1]}}</td>
+    <td>{{result[2]}}</td>
+    <td>{{result[3]}}</td>
+    <td>{{result[4]}}</td>
+    <td>{{result[5]}}</td>
+    <td>{{result[6]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</form>
+</div>
+
+
+	<form action="/pythonlogin/prereq" method = 'POST'>
+		<div class="container">
+			<h3>Enter Course Information to add</h3>
+			<hr>
+			<label for="dept"><b>Course Name</b></label>
+			<input type="text" placeholder="Enter Department" name="dept" id="dept" required>
+
+			<label for="course_num"><b>Course Number</b></label>
+			<input type="text" placeholder="Enter Course Number" name="course_num" id="course_num" required>
+			<hr>
+			<button type="submit" class="registerbtn">Check availability</button>
+      {{message}}
+		</div>
+    </div>
+
+	</form>
+
+  <script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+  
+</body>
+</html> 
+
+
+
+

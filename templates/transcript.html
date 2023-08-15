@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	color: #fff;
+	background: #465C8B;
+  font-size: 20px;
+}
+
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #0A0908;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #7a7a7a;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  font-size: 28px; /* Increased text to enable scrolling */
+  transition: margin-left .5s;
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 16px;
+}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+
+#transcript {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#transcript td, #transcript th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#transcript tr:hover {background-color: #ddd;}
+
+#transcript th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #000000;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+<a href="/pythonlogin/registerforclasses">Register for classes</a>
+<a href="/pythonlogin/transcript">View enrollment information</a>
+<a href="/pythonlogin/studenthome">Student Information</a>
+<a href="/pythonlogin/showdropcourse">Drop course</a>
+<a href="/pythonlogin/searchbar">Course Search</a>
+</div>
+
+  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button>  
+
+<form action= "/pythonlogin/transcript" method='POST'>
+  <h1><center>Enrollment Information</h1>
+  <p>Degree: {{degree}} </p>
+  <p>GPA: {{gpa}} </p>
+  <h2><center>Transcript </h2>
+
+<table id="transcript">
+  <tr>
+    <th>Course</th>
+    <th>Grade</th>
+    <th>Year taken</th>
+    <th>credits</th>
+  </tr>
+  <tr>
+  {% for transcript in transcript %}
+    <td>{{transcript[1]}}</td>
+    <td>{{transcript[2]}}</td>
+    <td>{{transcript[3]}}</td>
+    <td>{{transcript[4]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</form>
+</div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+   
+</body>
+</html> 

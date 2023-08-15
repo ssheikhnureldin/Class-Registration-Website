@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body {
+	color: #fff;
+	background: #465C8B;
+}
+.form-control {
+	min-height: 41px;
+	background: #f2f2f2;
+	box-shadow: none !important;
+	border: transparent;
+}
+.form-control:focus {
+	background: #e2e2e2;
+}
+.form-control, .btn {        
+	border-radius: 2px;
+}
+.login-form {
+	width: 700px;
+	margin: 30px auto;
+	text-align: center;
+}
+.login-form h2 {
+	margin: 10px 0 25px;
+}
+.login-form form {
+	color: #7a7a7a;
+	border-radius: 3px;
+	margin-bottom: 15px;
+	background: #fff;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+	padding: 30px;
+}
+.login-form .btn {        
+	font-size: 16px;
+	font-weight: bold;
+	background: #465C8B;
+	border: none;
+	outline: none !important;
+}
+.login-form .btn:hover, .login-form .btn:focus {
+	background: #2A3753;
+}
+.login-form a {
+	color: #fff;
+	text-decoration: underline;
+}
+.login-form a:hover {
+	text-decoration: none;
+}
+.login-form form a {
+	color: #7a7a7a;
+	text-decoration: none;
+}
+.login-form form a:hover {
+	text-decoration: underline;
+}
+.sidebar {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #0A0908;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #7a7a7a;
+  display: block;
+  transition: 0.3s;
+}
+
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #111;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+#main {
+  font-size: 28px; /* Increased text to enable scrolling */
+  transition: margin-left .5s;
+  font-size: 28px; /* Increased text to enable scrolling */
+  padding: 16px;
+}
+
+.open-button {
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  position: fixed;
+  bottom: 23px;
+  right: 28px;
+  width: 280px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
+</head>
+<body>
+
+<div id="mySidebar" class="sidebar">
+<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+<a href="/pythonlogin/registerforclasses">Register for classes</a>
+<a href="/pythonlogin/transcript">View enrollment information</a>
+<a href="/pythonlogin/studenthome">Student Information</a>
+<a href="/pythonlogin/showdropcourse">Drop course</a>
+<a href="/pythonlogin/searchbar">Course Search</a>
+</div>
+
+
+
+  <button class="openbtn" onclick="openNav()">☰ Open Sidebar</button> 
+
+
+<div class="login-form">
+    <form action="/pythonlogin/studenthome" method = 'POST'>
+        <h2>Student Home</h2>
+        <h3>Personal information</h3>
+        <p>First name: {{fname}}  </p>
+        <p>Last name: {{lname}}  </p>
+        <p>Address: {{address}} </p>
+        <p>Phone Number: {{phonenum}} </p>
+        <div class="form-group">
+        <a href="/pythonlogin/changeinfo" style="color:black;text-decoration:underline;">Click to edit information</a>
+        </div>
+    </form>
+</div>
+
+
+
+
+
+
+<script>
+function openNav() {
+  document.getElementById("mySidebar").style.width = "250px";
+  document.getElementById("main").style.marginLeft = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidebar").style.width = "0";
+  document.getElementById("main").style.marginLeft= "0";
+}
+</script>
+   
+</body>
+</html> 
+
+
+
+

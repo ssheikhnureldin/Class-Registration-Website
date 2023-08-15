@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+
+body {
+  font-family: "Lato", sans-serif;
+}
+
+.sidenav {
+  height: 100%;
+  width: 160px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
+
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 160px; /* Same as the width of the sidenav */
+  font-size: 16px; /* Increased text to enable scrolling */
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+
+* {
+  box-sizing: border-box;
+}
+
+form.example input[type=text] {
+  padding: 10px;
+  font-size: 17px;
+  border: 1px solid grey;
+  float: left;
+  width: 80%;
+  background: #f1f1f1;
+}
+
+form.example button {
+  float: left;
+  width: 20%;
+  padding: 10px;
+  background: #0b46da
+  color: white;
+  font-size: 17px;
+  border: 1px solid grey;
+  border-left: none;
+  cursor: pointer;
+}
+
+form.example button:hover {
+  background: #0b7dda;
+}
+
+form.example::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+/* Add padding to containers */
+.container {
+  padding: 16px;
+  background-color: white;
+}
+
+/* Full-width input fields */
+input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+
+input[type=text]:focus, input[type=password]:focus {
+  background-color: #ddd;
+  outline: none;
+}
+
+/* Overwrite default styles of hr */
+hr {
+  border: 1px solid #f1f1f1;
+  margin-bottom: 25px;
+}
+
+/* Set a style for the submit button */
+.registerbtn {
+  background-color: #000000;
+  color: white;
+  padding: 16px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+  opacity: 0.9;
+}
+
+.registerbtn:hover {
+  opacity: 1;
+}
+
+/* Add a blue text color to links */
+a {
+  color: dodgerblue;
+}
+
+/* Set a grey background color and center the text of the "sign in" section */
+.signin {
+  background-color: #f1f1f1;
+  text-align: center;
+}
+
+#transcript{
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#transcript td, #transcript th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#transcript tr:nth-child(even){background-color: #f2f2f2;}
+
+#transcript tr:hover {background-color: #ddd;}
+
+#transcript th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #000000;
+  color: white;
+}
+</style>
+</head>
+<body>
+
+<div class="sidenav">
+  <a href="/pythonlogin/registerforclasses">Register for classes</a>
+  <a href="/pythonlogin/transcript">View enrollment information</a>
+  <a href="/pythonlogin/studenthome">Student Home</a>
+  <a href="/pythonlogin/prereq">Prereq page</a>
+  <a href="/pythonlogin/showdropcourse">Drop course</a>
+
+</div>
+
+<div class="main">
+  <h2>Search transcripts by university ID</h2>
+  <p>Change/ override grades</p>
+
+	<form class="example" action= "/pythonlogin/searchtranscript" method='POST'>
+	<input type="text" placeholder="Search.." name="search">
+	<button type="submit" onclick = "openTable()"><i class="fa fa-search"></i></button>
+  <br><br><br>
+  <p>{{messageresult}}</p>
+
+
+<div id = "transcript">
+<table id="transcript">
+
+  <tr>
+    <th>Course</th>
+    <th>Grade</th>
+    <th>Year taken</th>
+    <th>credits</th>
+    <th>University_Id</th>
+  </tr>
+  <tr>
+  </form>
+  {% for transcript in transcript %}
+    <td>{{transcript[0]}}</td>
+    <td><div class="form" id="form">
+  <form action="/pythonlogin/changegrade" class="form-container" method = 'POST'>
+    <label for="grade"><b>Grade</b></label>
+    <input type="text" placeholder="Enter updated grade" name="grade">
+     <input type="hidden" name="search" value ={{transcript[5]}}>
+    <button type="submit" class="changegradebtn" onclick="openP()">Submit</button>
+    <p>Updated grade: {{grade}}</p>{{transcript[1]}}</td></form>
+    <td>{{transcript[2]}}</td>
+    <td>{{transcript[3]}}</td>
+    <td>{{transcript[4]}}</td>
+  </tr>
+  {% endfor %}
+</table>
+</form>
+</div>
+
+
+
+  
+</body>
+</html> 
+
+
+
+
+
